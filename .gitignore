@@ -1,0 +1,15 @@
+# Node dependencies
+node_modules/
+
+# Production builds
+dist/
+
+# Local configuration and debug logs
+.env
+.env.local
+.env.*.local
+firebase-debug.log
+.firebase/
+.vite/
+.DS_Store
+Thumbs.db

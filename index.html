@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeCom</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="stars-overlay"></div>
+    <div class="scanlines"></div>
+
+    <!-- Background Coffee Stains -->
+    <div class="coffee-stain" style="top: 15%; right: 5%;"></div>
+    <div class="coffee-stain" style="bottom: 12%; left: 8%;"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo">
+                <img src="logo.png" alt="SeCom Logo" class="logo-img">
+            </div>
+            <div class="connection-status" id="connection-status">
+                <span class="status-dot offline"></span>
+                <span class="status-text">OFFLINE</span>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-content">
+            <!-- 1. LOGIN SCREEN -->
+            <section id="screen-login" class="card active">
+                <i class="fa-solid fa-paperclip paper-clip"></i>
+                <div class="tape"></div>
+                <div class="sticker sticker-classified">RESTRICTED</div>
+                <div class="card-header">
+                    <h2>AUTHENTICATE IDENTITY</h2>
+                    <p>Enter a username to generate your ephemeral cryptographic keys.</p>
+                </div>
+                <div class="card-body">
+                    <form id="form-login">
+                        <div class="input-group">
+                            <label for="username">USERNAME</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-user"></i>
+                                <input type="text" id="username" placeholder="e.g. Agent_Zero" required
+                                    autocomplete="off" maxlength="15">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-glow">
+                            <span>INITIALIZE SESSION</span>
+                            <i class="fa-solid fa-key"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 2. LOBBY SCREEN -->
+            <section id="screen-lobby" class="card">
+                <i class="fa-solid fa-paperclip paper-clip"></i>
+                <div class="tape tape-pink"></div>
+                <div class="sticker sticker-secret">TOP SECRET</div>
+                <div class="card-header">
+                    <div class="user-greeting">
+                        <span>SECURE CONSOLE : </span>
+                        <span id="lobby-username" class="neon-text">...</span>
+                    </div>
+                </div>
+                <div class="card-body lobby-grid">
+                    <!-- Create Room -->
+                    <div class="lobby-action-box">
+                        <h3>CREATE ROOM</h3>
+                        <p>Generate a unique 6-digit channel number protected by modular Hill Cipher matrix keys.</p>
+                        <button id="btn-create-room" class="btn btn-accent btn-glow">
+                            <span>GENERATE NEW CHANNEL</span>
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <div class="lobby-divider">
+                        <span>OR</span>
+                    </div>
+
+                    <!-- Join Room -->
+                    <div class="lobby-action-box">
+                        <h3>JOIN CHANNEL</h3>
+                        <p>Enter an active 6-digit channel ID shared by your contact.</p>
+                        <form id="form-join-room">
+                            <div class="input-group">
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-hashtag"></i>
+                                    <input type="text" id="room-id-input" placeholder="e.g. 748291" required
+                                        autocomplete="off" pattern="\d{6}" maxlength="6">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span>CONNECT TO CHANNEL</span>
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. CHAT ROOM SCREEN -->
+            <section id="screen-chat" class="chat-layout">
+                <!-- Mobile Tabs Swapping Bar -->
+                <div class="mobile-tabs-bar">
+                    <button id="mobile-tab-chat" class="mobile-tab-btn active">
+                        <i class="fa-solid fa-comments"></i> CHAT FEED
+                    </button>
+                    <button id="mobile-tab-info" class="mobile-tab-btn">
+                        <i class="fa-solid fa-gears"></i> CIPHER ENGINE
+                    </button>
+                </div>
+
+                <!-- Left panel: Room info, matrix settings & visualizer -->
+                <div class="chat-side-panel">
+                    <div class="card panel-card">
+                        <div class="tape tape-small"></div>
+                        <div class="card-header flex-header">
+                            <div>
+                                <h3>CHANNEL METADATA</h3>
+                                <span id="chat-room-id" class="channel-badge"># 000000</span>
+                            </div>
+                            <button id="btn-leave-room" class="btn-leave" title="Disconnect">
+                                <i class="fa-solid fa-power-off"></i>
+                                <span>DISCONNECT</span>
+                            </button>
+                        </div>
+                        <div class="card-body text-small">
+                            <div class="metadata-row">
+                                <span class="meta-label">STATUS:</span>
+                                <span class="meta-value text-green">SECURE LINK ESTABLISHED</span>
+                            </div>
+                            <div class="metadata-row">
+                                <span class="meta-label">ALGORITHM:</span>
+                                <span class="meta-value">ECDH (P-256) + AES-GCM-256</span>
+                            </div>
+                            <div class="share-box">
+                                <p>Share this channel ID to invite a friend:</p>
+                                <div class="copy-wrapper" style="justify-content: center; margin-bottom: 10px;">
+                                    <span id="share-id-val">000000</span>
+                                </div>
+                                <button id="btn-copy-id" class="btn btn-primary">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>COPY ROOM NUMBER</span>
+                                </button>
+                            </div>
+                            <div class="ephemeral-note"
+                                style="margin-top: 15px; font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: var(--text-secondary); background: var(--color-orange-light); border: 2px dashed var(--border-color); padding: 10px; border-radius: var(--wobbly-radius-alt);">
+                                <i class="fa-solid fa-triangle-exclamation"
+                                    style="color: var(--color-orange); margin-right: 4px;"></i>
+                                <strong>EPHEMERAL POLICY:</strong>
+                                Encrypted messages can only be decrypted once. Once initiated, the payload will
+                                permanently lock and self-destruct in 15 seconds.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hill Cipher Key Configuration -->
+                    <div class="card panel-card card-yellow-sticky">
+                        <div class="tape tape-pink tape-small"></div>
+                        <div class="card-header">
+                            <h3>CRYPTOGRAPHIC KEYS <span style="font-size: 0.85rem; color: var(--color-pink); font-weight: 800; border: 2px solid var(--border-color); padding: 2px 8px; border-radius: var(--wobbly-radius-alt); margin-left: 6px; display: inline-block; vertical-align: middle; background: #fff; transform: rotate(-2deg); box-shadow: 1.5px 1.5px 0px #000;">DUMMY MOCK</span></h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="matrix-display-container">
+                                <div class="matrix-box">
+                                    <span class="matrix-title">ENCRYPTION KEY (K)</span>
+                                    <div class="matrix-grid">
+                                        <div class="matrix-cell">3</div>
+                                        <div class="matrix-cell">4</div>
+                                        <div class="matrix-cell">2</div>
+                                        <div class="matrix-cell">3</div>
+                                    </div>
+                                    <span class="matrix-det">det(K) = 1 (mod 27)</span>
+                                </div>
+                                <div class="matrix-box">
+                                    <span class="matrix-title">DECRYPTION KEY (K⁻¹)</span>
+                                    <div class="matrix-grid">
+                                        <div class="matrix-cell">3</div>
+                                        <div class="matrix-cell">23</div>
+                                        <div class="matrix-cell">25</div>
+                                        <div class="matrix-cell">3</div>
+                                    </div>
+                                    <span class="matrix-det">Invertible modulo 27</span>
+                                </div>
+                            </div>
+                            <p class="matrix-note">
+                                <i class="fa-solid fa-triangle-exclamation" style="color: var(--color-orange); margin-right: 4px;"></i>
+                                <strong>MOCK RETRO CIPHER:</strong> These modular matrix keys are mathematically real and invertible, but serve as dummy/decorative placeholders. Active sessions use in-memory <strong>ECDH (P-256) + AES-GCM-256</strong> keys.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step-by-step Visualizer -->
+                    <div class="card panel-card visualizer-card">
+                        <div class="tape tape-small"></div>
+                        <div class="card-header">
+                            <h3>CIPHER ENGINE VISUALIZER</h3>
+                        </div>
+                        <div class="card-body" id="visualizer-container">
+                            <div class="empty-visualizer-text">
+                                Send or receive an encrypted message to trace the algorithm steps in real-time.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right panel: Chat messages and input -->
+                <div class="chat-main-panel">
+                    <i class="fa-solid fa-paperclip paper-clip"></i>
+                    <div class="chat-header">
+                        <div class="chat-title">
+                            <span class="terminal-prompt">$</span> secure_feed_viewer.sh
+                        </div>
+                        <div class="chat-actions">
+                            <button id="btn-toggle-auto-decrypt" class="btn btn-outline"
+                                title="Toggle automatic decryption of incoming messages">
+                                <i class="fa-solid fa-lock"></i>
+                                <span>MANUAL MODE</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Messages go here -->
+                        <div class="system-message">
+                            --- SESSION INITIATED ---
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <textarea id="message-input" placeholder="Type a secure message..." rows="2"
+                            maxlength="250"></textarea>
+                        <div class="input-footer">
+                            <div class="char-count"><span id="char-used">0</span>/250</div>
+                            <div class="send-buttons">
+                                <button id="btn-send-plain" class="btn btn-outline">
+                                    <span>PLAIN SEND</span>
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                                <button id="btn-send-encrypted" class="btn btn-accent btn-glow" disabled
+                                    style="opacity: 0.6; cursor: not-allowed;">
+                                    <span>WAITING FOR PEER...</span>
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <span id="toast-msg"></span>
+    </div>
+
+    <!-- JS Files -->
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
