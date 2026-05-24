@@ -496,11 +496,13 @@ async function joinRoom(roomId) {
     await publishPublicKey(roomId);
     listenParticipants(roomId);
 
-    visualizerContainer.innerHTML = `
-        <div class="empty-visualizer-text">
-            Send or receive an encrypted message to trace the algorithm steps in real-time.
-        </div>
-    `;
+    if (visualizerContainer) {
+        visualizerContainer.innerHTML = `
+            <div class="empty-visualizer-text">
+                Send or receive an encrypted message to trace the algorithm steps in real-time.
+            </div>
+        `;
+    }
     chatMessages.innerHTML = `<div class="system-message">--- CONNECTED TO SECURE STREAM #${roomId} ---</div>`;
 
     showScreen('chat');
@@ -894,6 +896,7 @@ async function triggerDecryption(docId) {
  * Update the side panel visualizer
  */
 function updateVisualizer(title, steps) {
+    if (!visualizerContainer) return;
     visualizerContainer.innerHTML = `
         <h4 style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-green); margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">
             ${title}
