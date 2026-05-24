@@ -113,10 +113,16 @@ const chatMainPanel = document.querySelector('.chat-main-panel');
 
 // Initial Setup
 document.addEventListener('DOMContentLoaded', () => {
+    // Default to login screen immediately to set body class and show landing page elements
+    showScreen('login');
+
     // Monitor auth state changes
     onAuthStateChanged(auth, (user) => {
         if (user) {
             updateConnectionStatus(true);
+            if (!currentUser) {
+                showScreen('login');
+            }
         } else {
             updateConnectionStatus(false);
             showScreen('login');
