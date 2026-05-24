@@ -1686,3 +1686,17 @@ body.screen-login .landing-info-container {
     transform: rotate(1deg);
 }
 
+.footer-bottom {
+    text-align: center;
+    border-top: 3px solid var(--border-color);
+    padding-top: 25px;
+    margin-top: 20px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+
