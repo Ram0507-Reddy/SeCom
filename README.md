@@ -1,84 +1,91 @@
-# SeCom // Technical Architecture & Overview
+# SeCom — Free Self-Destructing Encrypted Chat Portal
 
-Welcome to **SeCom** (Secure Communication Portal). SeCom is a real-time, peer-to-peer encrypted chat web application styled with a vibrant, Gen-Z Neo-brutalist "hand-drawn sketchbook" aesthetic. It integrates a proprietary multi-layered encryption engine with real-time database synchronization.
+> **The zero-log, ephemeral P2P encrypted chat portal. Messages self-destruct in 15 seconds. No account needed.**
 
----
-
-## 1. Technology Stack
-
-The application is built on a modern, ultra-lightweight client-side stack:
-
-| Layer | Technology | Details |
-| :--- | :--- | :--- |
-| **Development & Build** | Vite v5.4.21 | Hot Module Replacement (HMR) for instant rendering; fast bundling for production. |
-| **Core Frontend** | Vanilla HTML5 & Javascript (ES Modules) | High-performance, native logic execution. |
-| **Styling & Theme** | Custom CSS3 | Custom wobbly variables, neo-brutalist drop-shadow offsets, and responsive media queries. |
-| **Icons & Typography** | FontAwesome & Google Fonts | Cursive and handwriting fonts (`Patrick Hand`, `Architects Daughter`) and monospaced code (`Fira Code`). |
-| **Backend & Sync** | Google Firebase (v10.8.0) | Firestore (real-time NoSQL database) and Firebase Anonymous Authentication. |
+🔗 **Live App:** [https://secom-chat-2026.web.app](https://secom-chat-2026.web.app)
 
 ---
 
-## 2. System Architecture
+## What is SeCom?
 
-SeCom operates as a fully client-side, serverless web application. 
+**SeCom** is a free, real-time **self-destructing encrypted chat portal** built for maximum privacy. It's designed for people who need to exchange sensitive information without leaving any digital trace.
 
-```mermaid
-graph TD
-    A[Client User A] <-->|Firebase Client SDK| B((Firebase Firestore))
-    C[Client User B] <-->|Firebase Client SDK| B
-    A -->|Proprietary Cipher Engine| D[Encryption Steps]
-    C -->|Proprietary Cipher Engine| E[Decryption Steps]
-    B -->|Security Rules| F{Auth Protection}
-```
-
-### Flow of Operations:
-1. **Authentication**: Users enter a username, and the client establishes an anonymous authentication session (`signInAnonymously`) with Firebase Auth.
-2. **Room Management**:
-   - **Create**: Generating a new channel creates a document in Firestore under `rooms/{roomId}` with an active keyspace configuration.
-   - **Join**: Entering a 6-digit code queries the room metadata document. If it exists, the client connects to the channel stream.
-3. **Real-time Sync**: The client initiates an `onSnapshot` listener on the subcollection `rooms/{roomId}/messages`. When a new message is added by either client, it is pushed to all connected users in real time.
+- ✅ **No account or signup** required — just open and chat
+- ✅ **Messages self-destruct** in 15 seconds automatically
+- ✅ **Zero logs** — nothing stored on any server after deletion
+- ✅ **End-to-end encrypted** using ECDH P-256 + AES-GCM-256
+- ✅ **Peer-to-peer** real-time encrypted messaging
+- ✅ **Manual lock button** — lock your session instantly
+- ✅ **Free** — no ads, no message content tracking
 
 ---
 
-## 3. Cryptographic Pipeline (The Cipher Engine)
+## How It Works
 
-The core feature of SeCom is its secure, proprietary, multi-layered cryptographic pipeline. It processes data using a multi-stage encryption engine that combines dynamic key derivation with layered encoding layers.
+SeCom is a **zero-log anonymous encrypted chat platform**:
 
-- **Dynamic Session-Key Handshake:** When users connect, a secure peer-to-peer key exchange is executed in the browser memory. The derived key exists only in the browser RAM and is never transmitted over the network or saved in database records.
-- **Layered Encryption Pipeline:** The message payload undergoes a multi-stage transformation pipeline combining non-linear substitutions, modular arithmetic matrix mapping, and dynamic symbol encoding before transmission.
-- **Symmetric Block Transport:** The network payload uses authenticated symmetric block ciphers with unique initialization vectors to prevent replay attacks and eavesdropping.
-
----
-
-## 4. Ephemeral Decryption & Self-Destruct Mechanics
-
-To ensure maximum message security, SeCom implements an ephemeral single-read self-destruct policy:
-
-1. **Decryption Initiation**:
-   - When a recipient clicks **`DECRYPT`** (or is in Auto Decrypt mode), the client triggers an update to the Firestore message document, setting `decryptedAt: Date.now()`.
-2. **Dynamic 15-Second Countdown**:
-   - The recipient's application calculates the elapsed time since decryption started.
-   - The message is decrypted and shown in plain text alongside a ticking timer: `Locks in X seconds...`.
-   - Once the counter hits zero, the plaintext is removed from the DOM, and the message state is replaced with `PERMANENTLY LOCKED (EXPIRED)`.
-3. **Manual Lock Button:**
-   - Recipients can click the **LOCK NOW** button to immediately delete the message document from the database, permanently locking it.
-4. **Database Consistency & Anti-Cheat**:
-   - Since the timestamp is stored directly in the Firestore database document, refreshing the page or leaving the room does not reset the countdown. Once a message has been decrypted for 15 cumulative seconds, it is locked forever for all clients.
-   - The sender is restricted from ever decrypting outgoing messages; their view of sent encrypted blocks remains locked.
+1. Open [secom-chat-2026.web.app](https://secom-chat-2026.web.app) — no signup
+2. Enter any username → your browser generates ephemeral ECDH P-256 key pairs **in-memory only**
+3. Create or join a 6-digit encrypted channel
+4. Once both peers connect, ECDH key exchange happens automatically
+5. All messages are encrypted with **AES-GCM-256** before leaving your browser
+6. Messages are stored encrypted in Firestore and **auto-deleted after 15 seconds**
+7. Once deleted, the ciphertext is gone — **no recovery possible**
 
 ---
 
-## 5. UI/UX Design System (Vibrant Gen-Z Sketchbook)
+## Encryption Architecture
 
-The visual design system of SeCom breaks away from standard layouts to present a hand-drawn sketchbook aesthetic:
+| Layer | Technology |
+|---|---|
+| Key Exchange | ECDH (P-256 / secp256r1) |
+| Message Encryption | AES-GCM-256 |
+| Key Derivation | HKDF (SHA-256) |
+| Storage | Firestore (encrypted ciphertext only, TTL: 15s) |
+| Server Logs | **None** — zero message content logging |
 
-* **Grid/Graph Paper Background**: A custom repeating linear CSS gradient forms green graph lines mimicking mathematical paper sheets.
-* **Hand-Drawn Wobble**: Utilizes custom wobbly border radii to make boxes look slightly uneven.
-* **Neo-Brutalist Drop Shadows**: High-contrast, bold outlines (`border: 3px solid #000;`) coupled with offset black shadows (`box-shadow: 6px 6px 0px #000000;`).
-* **Sketchbook Details**: Paperclips (FontAwesome rotated overlays), coffee ring stains, translucent neon duct tape, scribbled classified stickers, and a dedicated **`EPHEMERAL POLICY`** warning banner in the metadata panel.
-* **Highlighter Accent Palette**:
-  - Main background: Pastel mint paper (`#eaf5ed`)
-  - Primary yellow: Highlighter yellow (`#facc15`)
-  - Accent green: Neon marker green (`#4ade80`)
-  - Warning orange: Duct tape orange (`#fb923c`)
-  - Accompanying sticky note headers: Light purple (`#faf5ff`) and sticky note yellow (`#fefce8`).
+> Keys are generated and stored **in-memory only** — they are never written to disk or sent to any server.
+
+---
+
+## Why SeCom Instead of Other Apps?
+
+| Feature | SeCom | Signal | Telegram | WhatsApp |
+|---|---|---|---|---|
+| No phone number needed | ✅ | ❌ | ❌ | ❌ |
+| No account needed | ✅ | ❌ | ❌ | ❌ |
+| Messages self-destruct by default | ✅ | Optional | Optional | Optional |
+| Zero server-side storage | ✅ | ❌ | ❌ | ❌ |
+| Open in browser instantly | ✅ | ❌ | Partial | ❌ |
+
+---
+
+## Tech Stack
+
+- **Frontend:** Vanilla JS, HTML5, CSS3 (no framework)
+- **Encryption:** Web Crypto API (ECDH + AES-GCM-256)
+- **Backend:** Firebase Firestore (ephemeral storage only)
+- **Hosting:** Firebase Hosting
+- **Build:** Vite
+
+---
+
+## Use Cases
+
+- 🕵️ Sharing passwords or secrets securely
+- 💼 Confidential business communications
+- 🔐 Anonymous one-time secure message exchange
+- 🧪 Testing encrypted peer-to-peer messaging systems
+- 📱 Quick private chat without installing apps
+
+---
+
+## Keywords
+
+`self-destructing encrypted chat` · `ephemeral encrypted messaging` · `zero-log chat` · `anonymous secure chat` · `P2P encrypted chat` · `disappearing messages` · `burn after reading chat` · `no account encrypted chat` · `private chat portal` · `AES-GCM chat` · `ECDH encrypted messaging`
+
+---
+
+## License
+
+MIT License — Free to use, fork, and contribute.
