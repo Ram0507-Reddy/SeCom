@@ -184,6 +184,9 @@ function showScreen(screen) {
     screenLobby.classList.remove('active');
     screenChat.classList.remove('active');
 
+    // Add screen-specific class to body for scrollability and styling
+    document.body.className = `screen-${screen}`;
+
     if (screen === 'login') {
         screenLogin.classList.add('active');
     } else if (screen === 'lobby') {

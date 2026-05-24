@@ -1386,3 +1386,303 @@ body {
     white-space: nowrap;
     border: 0;
 }
+
+/* --- LOGIN SCREEN SCROLL OVERRIDES --- */
+body.screen-login {
+    overflow-y: auto !important;
+    height: auto !important;
+}
+
+body.screen-login .app-container {
+    height: auto !important;
+    min-height: auto !important;
+    padding-bottom: 0px;
+}
+
+body.screen-login .main-content {
+    flex: none;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+/* --- LANDING INFO PORTAL STYLES --- */
+.landing-info-container {
+    display: none;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 80px auto;
+    padding: 0 20px;
+    z-index: 10;
+    position: relative;
+}
+
+body.screen-login .landing-info-container {
+    display: flex;
+}
+
+.info-section {
+    background: var(--bg-surface);
+    border: 3px solid var(--border-color);
+    border-radius: var(--wobbly-radius-alt);
+    padding: 35px;
+    box-shadow: 6px 6px 0px #000000;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.info-section:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px #000000;
+}
+
+.section-header {
+    margin-bottom: 25px;
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 15px;
+}
+
+.section-header h2 {
+    font-size: 1.8rem;
+    font-family: 'Architects Daughter', cursive;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.section-header h2 .highlight-text {
+    background: var(--color-yellow);
+    padding: 0 6px;
+    border-radius: 4px;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.section-body {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* Guide List */
+.guide-list {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.guide-list li {
+    padding-left: 5px;
+}
+
+.guide-list li strong {
+    color: var(--color-purple);
+    font-family: 'Architects Daughter', cursive;
+    font-size: 1.15rem;
+}
+
+/* Brutalist Table */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border: 3px solid var(--border-color);
+    border-radius: var(--wobbly-radius);
+    box-shadow: 4px 4px 0px #000000;
+}
+
+.brutalist-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    text-align: left;
+}
+
+.brutalist-table th {
+    background: var(--color-yellow);
+    color: var(--text-primary);
+    padding: 14px 16px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    border-bottom: 3px solid var(--border-color);
+    border-right: 2px solid var(--border-color);
+}
+
+.brutalist-table th:last-child {
+    border-right: none;
+}
+
+.brutalist-table td {
+    padding: 14px 16px;
+    border-bottom: 2px solid var(--border-color);
+    border-right: 2px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+}
+
+.brutalist-table td:last-child {
+    border-right: none;
+}
+
+.brutalist-table tr:last-child td {
+    border-bottom: none;
+}
+
+.brutalist-table tr:hover {
+    background: var(--bg-surface-hover);
+}
+
+/* FAQ Grid */
+.faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.faq-card {
+    background: var(--color-purple-light);
+    border: 2.5px solid var(--border-color);
+    border-radius: var(--wobbly-radius);
+    padding: 20px;
+    box-shadow: 4px 4px 0px #000000;
+    transition: var(--transition-smooth);
+}
+
+.faq-card:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0px #000000;
+}
+
+.faq-card h4 {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    border-bottom: 2px dashed rgba(0,0,0,0.15);
+    padding-bottom: 6px;
+}
+
+.faq-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Policy Text */
+.policy-text p {
+    margin-bottom: 15px;
+}
+
+.policy-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* License */
+.license-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.license-box {
+    border: 2px solid var(--border-color);
+    border-radius: var(--wobbly-radius-alt);
+    background: #1e1e2e;
+    color: #a6adc8;
+    padding: 15px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.license-box strong {
+    color: #f9e2af;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.license-box pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+.audit-badges {
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .audit-badges {
+        flex-direction: column;
+    }
+}
+
+.badge-card {
+    flex: 1;
+    display: flex;
+    gap: 15px;
+    background: #fff;
+    border: 2.5px solid var(--border-color);
+    border-radius: var(--wobbly-radius);
+    padding: 15px;
+    box-shadow: 4px 4px 0px #000000;
+    align-items: flex-start;
+}
+
+.badge-card i {
+    font-size: 1.8rem;
+    margin-top: 2px;
+}
+
+.text-green-icon {
+    color: var(--color-green);
+}
+
+.text-purple-icon {
+    color: var(--color-purple);
+}
+
+.badge-card h5 {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+}
+
+.badge-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.tape-yellow {
+    background: rgba(250, 204, 21, 0.7);
+    transform: rotate(-1.5deg);
+}
+
+.tape-pink {
+    background: rgba(255, 96, 181, 0.7) !important;
+    transform: rotate(2deg);
+}
+
+.tape-purple {
+    background: rgba(168, 85, 247, 0.7);
+    transform: rotate(-2deg);
+}
+
+.tape-orange {
+    background: rgba(251, 146, 60, 0.7);
+    transform: rotate(1deg);
+}
+
