@@ -6,6 +6,39 @@
     <title>SeCom Documentation – Ephemeral Secure Chat Setup & Specifications</title>
     <meta name="description" content="Technical documentation, cryptographic specifications, and user guide for SeCom secure ephemeral chat portal.">
     <link rel="canonical" href="https://secom-chat-2026.web.app/docs">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Start an Ephemeral Encrypted Chat on SeCom",
+      "description": "Step-by-step guide to generating keys and opening a secure self-destructing chat channel.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Generate Session Keys",
+          "text": "Enter a temporary nickname to initialize. Your browser immediately generates a local 256-bit ECDH key pair in RAM."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Open a Secure Channel",
+          "text": "Click 'Generate New Channel' to create a randomized 6-digit room, or connect to a room code shared by your peer."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Exchange Keys",
+          "text": "Once both users are active in the room, public keys are automatically synced. A shared AES-GCM-256 symmetric key is derived in memory."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Chat and Self-Destruct",
+          "text": "Write a message. Payloads are encrypted client-side using the derived key. Deletion occurs 15 seconds after recipient decryption."
+        }
+      ]
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

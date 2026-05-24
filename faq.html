@@ -6,6 +6,49 @@
     <title>SeCom FAQ – Frequently Asked Questions on Ephemeral Messaging</title>
     <meta name="description" content="Frequently asked questions about SeCom self-destructing chat room, end-to-end encryption keys, and privacy mechanics.">
     <link rel="canonical" href="https://secom-chat-2026.web.app/faq">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does the 15-second self-destruct mechanism work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When a recipient decrypts a message, a Firestore timestamp update registers decryptedAt. The client listens to this update and starts a 15-second timer. When the countdown expires, the client triggers a Firestore document delete query, destroying the record. If the recipient tries to reload or disconnect mid-timer, the security rules block subsequent reads, and the next client immediately deletes the stale document."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are messages readable by Google, Firestore, or administrators?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All encryption occurs client-side in the browser using the Web Crypto API before the payload leaves your sandbox. Private key buffers are derived dynamically and stored strictly in active browser RAM (never saved to local storage or transmitted to any server). Because the server only sees AES-GCM-256 ciphertext and random IV buffers, administrators have no way to decrypt your chats."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to sign up or input my email/phone number?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. SeCom is built for total anonymity. No registration, emails, phone numbers, or profiling details are requested. In the background, Firebase Anonymous Auth generates credentials purely to comply with Firestore database access policies without collecting any personal data."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if my chat contact leaves the session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When a peer clicks \"Disconnect\" or closes their browser tab, their session registration is deleted from Firestore and their private in-memory key is cleared. The active channel immediately resets, disabling message sending and clearing all pending messages automatically."
+          }
+        }
+      ]
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
