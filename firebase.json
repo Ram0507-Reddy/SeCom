@@ -19,6 +19,22 @@
     ],
     "rewrites": [
       {
+        "source": "/docs",
+        "destination": "/docs.html"
+      },
+      {
+        "source": "/faq",
+        "destination": "/faq.html"
+      },
+      {
+        "source": "/privacy",
+        "destination": "/privacy.html"
+      },
+      {
+        "source": "/terms",
+        "destination": "/terms.html"
+      },
+      {
         "source": "/sitemap.xml",
         "destination": "/sitemap.xml"
       },

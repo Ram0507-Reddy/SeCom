@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeCom Privacy Policy – Zero-Log & Data Minimization Practices</title>
+    <meta name="description" content="SeCom zero-log and privacy policy details. Understand how our client-side encryption keeps your data safe.">
+    <link rel="canonical" href="https://secom-chat-2026.web.app/privacy">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="subpage">
+    <div class="stars-overlay"></div>
+    <div class="scanlines"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo">
+                <a href="/" style="text-decoration: none;"><img src="logo.png" alt="SeCom Logo" class="logo-img"></a>
+            </div>
+            <a href="/" class="btn-leave" style="text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>BACK TO APP</span>
+            </a>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-content">
+            <section class="card active" style="max-width: 800px; margin: 0 auto 40px auto; width: 100%;">
+                <i class="fa-solid fa-paperclip paper-clip"></i>
+                <div class="tape tape-purple"></div>
+                <div class="card-header">
+                    <h2>ZERO-LOG & PRIVACY POLICY</h2>
+                    <p>Our operational commitment to user data protection.</p>
+                </div>
+                <div class="card-body" style="font-size: 1.05rem; font-weight: 600; line-height: 1.6;">
+                    
+                    <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--color-purple); margin-top: 20px; margin-bottom: 10px;">1 / Data Minimization</h3>
+                    <p style="margin-bottom: 15px;">SeCom operates on a strict data minimization protocol. We do not collect, request, parse, or store any Personally Identifiable Information (PII) such as names, phone numbers, email addresses, or social identifiers. Usernames are temporary, client-side session variables used solely to label text bubbles.</p>
+
+                    <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--color-purple); margin-top: 30px; margin-bottom: 10px;">2 / Message Storage & Deletion</h3>
+                    <p style="margin-bottom: 15px;">All messages are fully encrypted client-side using end-to-end AES-GCM-256 before leaving your browser. Plaintexts are never transmitted over the network or saved in server databases. Ciphertexts are held in Google Cloud Firestore transiently and are permanently physically deleted 15 seconds after recipient decryption. Once deleted, documents are irrecoverable.</p>
+
+                    <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--color-purple); margin-top: 30px; margin-bottom: 10px;">3 / Connection Logging</h3>
+                    <p style="margin-bottom: 15px;">SeCom does not log, track, or record database queries or transit logs. Firebase Hosting serves the static assets. Connection monitoring via Google Analytics tracks raw page visit trends without collecting IP addresses, room numbers, username inputs, or message contents.</p>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="subpage-footer" style="text-align: center; margin-top: 40px; padding: 20px 0; border-top: 2px dashed var(--border-color); font-weight: 800;">
+            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap;">
+                <a href="/docs" style="color: var(--text-primary); text-decoration: none;">Documentation</a>
+                <a href="/faq" style="color: var(--text-primary); text-decoration: none;">FAQs</a>
+                <a href="/privacy" style="color: var(--text-primary); text-decoration: underline;">Privacy Policy</a>
+                <a href="/terms" style="color: var(--text-primary); text-decoration: none;">Terms of Service</a>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 6px;">&copy; 2026 SeCom Portal. All rights reserved.</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Built for absolute privacy. Open source MIT License.</p>
+        </footer>
+    </div>
+</body>
+</html>

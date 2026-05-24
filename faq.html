@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeCom FAQ – Frequently Asked Questions on Ephemeral Messaging</title>
+    <meta name="description" content="Frequently asked questions about SeCom self-destructing chat room, end-to-end encryption keys, and privacy mechanics.">
+    <link rel="canonical" href="https://secom-chat-2026.web.app/faq">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="subpage">
+    <div class="stars-overlay"></div>
+    <div class="scanlines"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo">
+                <a href="/" style="text-decoration: none;"><img src="logo.png" alt="SeCom Logo" class="logo-img"></a>
+            </div>
+            <a href="/" class="btn-leave" style="text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>BACK TO APP</span>
+            </a>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-content">
+            <section class="card active" style="max-width: 800px; margin: 0 auto 40px auto; width: 100%;">
+                <i class="fa-solid fa-paperclip paper-clip"></i>
+                <div class="tape tape-pink"></div>
+                <div class="card-header">
+                    <h2>FREQUENTLY ASKED QUESTIONS</h2>
+                    <p>Security, operational, and architectural answers.</p>
+                </div>
+                <div class="card-body" style="font-size: 1.05rem; font-weight: 600; line-height: 1.6; display: flex; flex-direction: column; gap: 20px;">
+                    
+                    <div style="background: var(--color-purple-light); border: 2.5px solid var(--border-color); border-radius: var(--wobbly-radius); padding: 20px; box-shadow: 4px 4px 0px #000;">
+                        <h4 style="font-family: 'Architects Daughter', cursive; font-size: 1.25rem; color: var(--text-primary); margin-bottom: 8px; border-bottom: 2px dashed rgba(0,0,0,0.1); padding-bottom: 6px;">How does the 15-second self-destruct mechanism work?</h4>
+                        <p style="font-size: 0.95rem; color: var(--text-secondary);">When a recipient decrypts a message, a Firestore timestamp update registers <code>decryptedAt</code>. The client listens to this update and starts a 15-second timer. When the countdown expires, the client triggers a Firestore document delete query, destroying the record. If the recipient tries to reload or disconnect mid-timer, the security rules block subsequent reads, and the next client immediately deletes the stale document.</p>
+                    </div>
+
+                    <div style="background: var(--color-purple-light); border: 2.5px solid var(--border-color); border-radius: var(--wobbly-radius); padding: 20px; box-shadow: 4px 4px 0px #000;">
+                        <h4 style="font-family: 'Architects Daughter', cursive; font-size: 1.25rem; color: var(--text-primary); margin-bottom: 8px; border-bottom: 2px dashed rgba(0,0,0,0.1); padding-bottom: 6px;">Are messages readable by Google, Firestore, or administrators?</h4>
+                        <p style="font-size: 0.95rem; color: var(--text-secondary);">No. All encryption occurs client-side in the browser using the Web Crypto API before the payload leaves your sandbox. Private key buffers are derived dynamically and stored strictly in active browser RAM (never saved to local storage or transmitted to any server). Because the server only sees AES-GCM-256 ciphertext and random IV buffers, administrators have no way to decrypt your chats.</p>
+                    </div>
+
+                    <div style="background: var(--color-purple-light); border: 2.5px solid var(--border-color); border-radius: var(--wobbly-radius); padding: 20px; box-shadow: 4px 4px 0px #000;">
+                        <h4 style="font-family: 'Architects Daughter', cursive; font-size: 1.25rem; color: var(--text-primary); margin-bottom: 8px; border-bottom: 2px dashed rgba(0,0,0,0.1); padding-bottom: 6px;">Do I need to sign up or input my email/phone number?</h4>
+                        <p style="font-size: 0.95rem; color: var(--text-secondary);">No. SeCom is built for total anonymity. No registration, emails, phone numbers, or profiling details are requested. In the background, Firebase Anonymous Auth generates credentials purely to comply with Firestore database access policies without collecting any personal data.</p>
+                    </div>
+
+                    <div style="background: var(--color-purple-light); border: 2.5px solid var(--border-color); border-radius: var(--wobbly-radius); padding: 20px; box-shadow: 4px 4px 0px #000;">
+                        <h4 style="font-family: 'Architects Daughter', cursive; font-size: 1.25rem; color: var(--text-primary); margin-bottom: 8px; border-bottom: 2px dashed rgba(0,0,0,0.1); padding-bottom: 6px;">What happens if my chat contact leaves the session?</h4>
+                        <p style="font-size: 0.95rem; color: var(--text-secondary);">When a peer clicks "Disconnect" or closes their browser tab, their session registration is deleted from Firestore and their private in-memory key is cleared. The active channel immediately resets, disabling message sending and clearing all pending messages automatically.</p>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="subpage-footer" style="text-align: center; margin-top: 40px; padding: 20px 0; border-top: 2px dashed var(--border-color); font-weight: 800;">
+            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap;">
+                <a href="/docs" style="color: var(--text-primary); text-decoration: none;">Documentation</a>
+                <a href="/faq" style="color: var(--text-primary); text-decoration: underline;">FAQs</a>
+                <a href="/privacy" style="color: var(--text-primary); text-decoration: none;">Privacy Policy</a>
+                <a href="/terms" style="color: var(--text-primary); text-decoration: none;">Terms of Service</a>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 6px;">&copy; 2026 SeCom Portal. All rights reserved.</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Built for absolute privacy. Open source MIT License.</p>
+        </footer>
+    </div>
+</body>
+</html>

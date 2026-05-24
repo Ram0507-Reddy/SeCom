@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeCom Documentation – Ephemeral Secure Chat Setup & Specifications</title>
+    <meta name="description" content="Technical documentation, cryptographic specifications, and user guide for SeCom secure ephemeral chat portal.">
+    <link rel="canonical" href="https://secom-chat-2026.web.app/docs">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="subpage">
+    <div class="stars-overlay"></div>
+    <div class="scanlines"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo">
+                <a href="/" style="text-decoration: none;"><img src="logo.png" alt="SeCom Logo" class="logo-img"></a>
+            </div>
+            <a href="/" class="btn-leave" style="text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>BACK TO APP</span>
+            </a>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-content">
+            <section class="card active" style="max-width: 800px; margin: 0 auto 40px auto; width: 100%;">
+                <i class="fa-solid fa-paperclip paper-clip"></i>
+                <div class="tape tape-yellow"></div>
+                <div class="card-header">
+                    <h2>TECHNICAL DOCUMENTATION</h2>
+                    <p>Guide and cryptographic pipeline specifications for SeCom.</p>
+                </div>
+                <div class="card-body" style="font-size: 1.05rem; font-weight: 600; line-height: 1.6;">
+                    <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--color-purple); margin-top: 20px; margin-bottom: 10px;">01 / How It Works Guide</h3>
+                    <p style="margin-bottom: 15px;">SeCom enables instant end-to-end encrypted messaging with a strict 15-second self-destruct countdown. To start a secure session, follow these steps:</p>
+                    <ol style="margin-left: 25px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 10px;">
+                        <li><strong>Generate Keys</strong>: Enter a temporary nickname to initialize. Your browser immediately generates a local 256-bit ECDH key pair in RAM.</li>
+                        <li><strong>Open Channel</strong>: Click "Generate New Channel" to create a randomized 6-digit room, or connect to a room code shared by your peer.</li>
+                        <li><strong>Exchange Credentials</strong>: Once both users are active in the room, public keys are automatically synced. A shared AES-GCM-256 symmetric key is derived in memory.</li>
+                        <li><strong>Encrypted Chat</strong>: Write a message. Payloads are encrypted client-side using the derived key. Deletion occurs 15 seconds after recipient decryption.</li>
+                    </ol>
+
+                    <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--color-purple); margin-top: 30px; margin-bottom: 10px;">02 / Cryptographic Architecture</h3>
+                    <p style="margin-bottom: 15px;">SeCom relies entirely on client-side encryption sandbox protocols to ensure your keys and plaintexts never traverse the network:</p>
+                    <div class="table-responsive" style="margin-bottom: 25px; border: 3px solid var(--border-color); border-radius: var(--wobbly-radius); box-shadow: 4px 4px 0px #000; overflow-x: auto;">
+                        <table class="brutalist-table" style="width: 100%; border-collapse: collapse; background: #fff; text-align: left;">
+                            <thead>
+                                <tr>
+                                    <th style="background: var(--color-yellow); color: var(--text-primary); padding: 12px; font-weight: 800; border-bottom: 3px solid var(--border-color); border-right: 2px solid var(--border-color);">Security Layer</th>
+                                    <th style="background: var(--color-yellow); color: var(--text-primary); padding: 12px; font-weight: 800; border-bottom: 3px solid var(--border-color); border-right: 2px solid var(--border-color);">Standard</th>
+                                    <th style="background: var(--color-yellow); color: var(--text-primary); padding: 12px; font-weight: 800; border-bottom: 3px solid var(--border-color);">Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color); border-right: 2px solid var(--border-color);"><strong>Key Exchange</strong></td>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color); border-right: 2px solid var(--border-color); font-family: var(--font-mono); font-size: 0.9rem;">ECDH P-256</td>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color);">Generates ephemeral shared secret key pairs in browser RAM.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color); border-right: 2px solid var(--border-color);"><strong>Symmetric Encryption</strong></td>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color); border-right: 2px solid var(--border-color); font-family: var(--font-mono); font-size: 0.9rem;">AES-GCM-256</td>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color);">Encrypts message payloads using unique 12-byte initialization vectors.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color); border-right: 2px solid var(--border-color);"><strong>Key Derivation</strong></td>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color); border-right: 2px solid var(--border-color); font-family: var(--font-mono); font-size: 0.9rem;">HKDF (SHA-256)</td>
+                                    <td style="padding: 12px; border-bottom: 2px solid var(--border-color);">Derives strong symmetric cipher keys from ECDH bits.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border-right: 2px solid var(--border-color);"><strong>Transit Storage</strong></td>
+                                    <td style="padding: 12px; border-right: 2px solid var(--border-color); font-family: var(--font-mono); font-size: 0.9rem;">Cloud Firestore</td>
+                                    <td style="padding: 12px;">Holds ciphertext transiently. TTL-enforced document deletion triggers 15s after read.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="font-family: 'Architects Daughter', cursive; font-size: 1.4rem; color: var(--color-purple); margin-top: 30px; margin-bottom: 10px;">03 / System Requirements</h3>
+                    <p style="margin-bottom: 10px;">SeCom uses native browser cryptography libraries. No downloads or plugins are required. Compatible with:</p>
+                    <ul style="margin-left: 25px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px;">
+                        <li>Google Chrome 80+ / Chromium-based browsers</li>
+                        <li>Mozilla Firefox 75+</li>
+                        <li>Apple Safari 14+</li>
+                        <li>Microsoft Edge 80+</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="subpage-footer" style="text-align: center; margin-top: 40px; padding: 20px 0; border-top: 2px dashed var(--border-color); font-weight: 800;">
+            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 15px; flex-wrap: wrap;">
+                <a href="/docs" style="color: var(--text-primary); text-decoration: underline;">Documentation</a>
+                <a href="/faq" style="color: var(--text-primary); text-decoration: none;">FAQs</a>
+                <a href="/privacy" style="color: var(--text-primary); text-decoration: none;">Privacy Policy</a>
+                <a href="/terms" style="color: var(--text-primary); text-decoration: none;">Terms of Service</a>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 6px;">&copy; 2026 SeCom Portal. All rights reserved.</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Built for absolute privacy. Open source MIT License.</p>
+        </footer>
+    </div>
+</body>
+</html>

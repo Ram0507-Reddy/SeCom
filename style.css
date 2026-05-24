@@ -1749,4 +1749,31 @@ body.screen-login .landing-info-container {
     gap: 6px;
 }
 
+/* --- SUBPAGE LAYOUT OVERRIDES --- */
+body.subpage {
+    overflow-y: auto !important;
+    height: auto !important;
+}
+
+body.subpage .app-container {
+    height: auto !important;
+    min-height: 100vh;
+}
+
+body.subpage .main-content {
+    flex: none;
+    height: auto;
+}
+
+.subpage-footer a {
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.subpage-footer a:hover {
+    color: var(--color-purple) !important;
+    text-decoration: underline;
+}
+
+
 
