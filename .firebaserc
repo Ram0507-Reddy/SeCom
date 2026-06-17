@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "secom-secure-chat-2026"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
